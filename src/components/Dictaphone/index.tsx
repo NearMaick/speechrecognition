@@ -1,4 +1,11 @@
-import SpeechReognition, { useSpeechRecognition } from 'react-speech-recognition'
+import React from 'react'
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+
+import {
+  Flex,
+  Text,
+  Button,
+} from "@chakra-ui/react"
 
 export const Dictaphone = () => {
   const {
@@ -8,19 +15,21 @@ export const Dictaphone = () => {
   } = useSpeechRecognition()
 
   function handleStart() {
-    SpeechReognition.startListening({
+    SpeechRecognition.startListening({
       continuous: true,
       language: 'pt-BR'
     })
   }
 
   return (
-    <div className="App-header">
-      <p>Microphone: {listening ? 'on' : 'off'}</p>
-      <button onClick={handleStart}>Start</button>
-      <button onClick={SpeechReognition.stopListening}>Stop</button>
-      <button onClick={resetTranscript}>Reset</button>
-      <p>{transcript}</p>
-    </div>
+    <Flex direction="column" width={900}>
+      <Text>Microphone: {listening ? 'on' : 'off'}</Text>
+      <Flex justifyContent="space-between" marginX="6" m="4">
+        <Button background="green" onClick={handleStart}>Start</Button>
+        <Button background="red" onClick={SpeechRecognition.stopListening}>Stop</Button>
+        <Button onClick={resetTranscript}>Reset</Button>
+      </Flex>
+      <Text>{transcript}</Text>
+    </Flex>
   )
 }
